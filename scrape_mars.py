@@ -5,16 +5,11 @@ from webdriver_manager.chrome import ChromeDriverManager
 from config import chrome_driver_path
 
 def browser_initiation():
-    return Browser("chrome", **executable_path, headless = False)
+    return Browser("chrome", **chrome_driver_path, headless = False)
 
 def scrape():
     #initiate the browser to load URL data
     browser_initiation()
-
-    # create the paths for chrome drivers
-    executable_path = {'executable_path': ChromeDriverManager().install()}
-    # load settings for the Browser
-    browser = Browser('chrome', **executable_path, headless = False)
 
     # retrieving latest mars news
     # mars news url
