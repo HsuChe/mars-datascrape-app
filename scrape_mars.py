@@ -9,7 +9,7 @@ def browser_initiation():
 
 def scrape():
     #initiate the browser to load URL data
-    browser_initiation()
+    browser = browser_initiation()
 
     # retrieving latest mars news
     # mars news url
@@ -28,7 +28,7 @@ def scrape():
     print("news_body retrieval complete")
 
 
-    # retrieving mars images
+    # retrieving mars feature image
     # base image url
     image_base_path = 'https://spaceimages-mars.com/'
 
@@ -36,7 +36,7 @@ def scrape():
     browser.visit(image_base_path)
     # load the html into the parser
     html_img = browser.html
-    images_soup = BeautifulSoup(html_img, 'html.parser')# retrieve featured image link
+    images_soup = BeautifulSoup(html_img, 'html.parser')
     img_path = images_soup.find('img', class_ = 'headerimage fade-in')['src']
     featured_image_url = image_base_path + img_path
     print("featured_image_url retrieval complete")
@@ -45,7 +45,12 @@ def scrape():
     # base mars fact URL
     mar_fact_url = 'https://galaxyfacts-mars.com'
     html_table_string = pd.read_html(mar_fact_url)
+    mars_table = html_table_string[0].rename(columns = {0:'Description', 1:'Mars', 2:"Earth"}).set_index('Description').iloc[1:]
+    mars_table_html = mars_table.to_html()
+
+    html_table_string
     print("html_table_string retrieval complete")
+    
 
     # retreive mars hemisphere information
     # base hemisphere URL
@@ -84,7 +89,7 @@ def scrape():
         "news_title": news_title,
         "news_body": news_body,
         "featured_image": featured_image_url,
-        "mars_fact_table": html_table_string,
+        "mars_fact_table": mars_table_html,
         "mars_hemisphere_images":hemisphere_image_urls
     }
     print("mars_dict populated")
