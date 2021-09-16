@@ -1,6 +1,6 @@
 > # Mars Data Flask App
 
-![hero_image.jpg](Images/hero_image.jpg)
+![hero_image.jpg](images/hero_image.jpg)
 
 ### Backgroud
 
